@@ -1,4 +1,4 @@
-# HotelBooking
+# Hotel Booking
 
 Sistema de reservas de quartos de hotel. 
 
