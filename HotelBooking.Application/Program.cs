@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HotelBooking.Business.Business;
+using HotelBooking.Repository.Repositories;
+using HotelBooking.Services.Services;
+using System;
 
 namespace HotelBooking.Application
 {
@@ -7,10 +10,13 @@ namespace HotelBooking.Application
         static void Main( string[] args )
         {
             // Dependencies
-            Repository.Repositories.BedroomRepository bedroomRepository = new Repository.Repositories.BedroomRepository( );
-            Business.Business.BedroomBusiness bedroomBusiness = new Business.Business.BedroomBusiness( bedroomRepository );
+            BedroomRepository bedroomRepository = new BedroomRepository( );
+            BedroomBusiness bedroomBusiness = new BedroomBusiness( bedroomRepository );
 
-            Menu menu = new Menu( new Services.Services.BedroomService( bedroomBusiness ) );
+            ClientRepository clientRepository = new ClientRepository( );
+            ClientBusiness clientBusiness = new ClientBusiness( clientRepository );
+
+            Menu menu = new Menu( new BedroomService( bedroomBusiness ), new ClientService( clientBusiness ) );
 
             menu.Run( );
         }

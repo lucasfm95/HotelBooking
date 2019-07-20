@@ -1,4 +1,6 @@
-﻿using HotelBooking.Domain.Entities;
+﻿using HotelBooking.Business.Business.Interfaces;
+using HotelBooking.Domain.Entities;
+using HotelBooking.Domain.Model;
 using HotelBooking.Repository.Repositories;
 using HotelBooking.Repository.Repositories.Interfaces;
 using System;
@@ -7,12 +9,17 @@ using System.Text;
 
 namespace HotelBooking.Services.Services
 {
-    class ClientService
+    public class ClientService
     {
-        private readonly Repository<Client> m_ClientRepository;
-        public ClientService( Repository<Client> p_ClientRepository )
+        private readonly IClientBusiness m_ClientBusiness;
+        public ClientService( IClientBusiness p_ClientBusiness )
         {
-            m_ClientRepository = p_ClientRepository;
+            m_ClientBusiness = p_ClientBusiness;
+        }
+
+        public void Registration( ClientModel clientModel )
+        {
+            m_ClientBusiness.CreateClient( clientModel );
         }
 
     }
