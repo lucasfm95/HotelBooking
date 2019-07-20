@@ -10,17 +10,15 @@ namespace HotelBooking.Services.Services
 {
     public class BedroomService
     {
-        private readonly IRepository<Bedroom> m_BedroomRepository;
         private readonly IBedroomBusiness m_BedroomBusiness;
-        public BedroomService( IBedroomBusiness p_BedroomBusiness, IRepository<Bedroom> p_BedroomRepository )
+        public BedroomService( IBedroomBusiness p_BedroomBusiness )
         {
             m_BedroomBusiness = p_BedroomBusiness;
-            m_BedroomRepository = p_BedroomRepository;
         }
 
         public bool Registration( BedroomModel p_BedroomModel )
         {
-            return m_BedroomRepository.Add( m_BedroomBusiness.CreateBedrooms( p_BedroomModel ).ToArray( ) );
+            return m_BedroomBusiness.CreateBedrooms( p_BedroomModel );
         }
     }
 }

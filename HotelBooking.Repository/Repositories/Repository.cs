@@ -6,9 +6,9 @@ using System.Text;
 
 namespace HotelBooking.Repository.Repositories
 {
-    public abstract class Repository<T> : IRepository<T> where T : IEntity 
+    public abstract class Repository<T> : IRepository<T> where T : IEntity
     {
-        private readonly List<T> m_ListData;
+        protected List<T> m_ListData;
         private object m_ObjFlag = new object( );
 
         public Repository( )
@@ -25,20 +25,17 @@ namespace HotelBooking.Repository.Repositories
             }
         }
 
-        public bool Add( T[] objs )
+        public bool Add( T obj )
         {
             try
             {
-                foreach ( T obj in objs )
-                {
-                    m_ListData.Add( obj );
-                }
-                
+                m_ListData.Add( obj );
+
                 return true;
             }
-            catch ( Exception ex)
+            catch ( Exception ex )
             {
-                throw new Exception("Error add object", ex);
+                throw new Exception( "Error add object", ex );
             }
         }
 
@@ -49,17 +46,17 @@ namespace HotelBooking.Repository.Repositories
 
         public List<T> GetAll( )
         {
-            throw new NotImplementedException( );
+            return m_ListData;
         }
 
-        public T GetByGuid( Guid guid )
+        public T GetByKey( Guid key )
         {
-            throw new NotImplementedException( );
+            return m_ListData.Find( ( a ) => a.Key == key );
         }
 
         public T GetById( long id )
         {
-            throw new NotImplementedException( );
+            return m_ListData.Find( ( a ) => a.Id == id );
         }
 
         public bool Update( T objs )

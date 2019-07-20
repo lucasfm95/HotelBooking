@@ -8,9 +8,9 @@ namespace HotelBooking.Repository.Repositories.Interfaces
     {
         List<T> GetAll( );
         T GetById( long id );
-        T GetByGuid( Guid guid );
-        bool Add( params T[] objs );
-        bool Update( T objs );
+        T GetByKey( Guid key );
+        bool Add( T obj );
+        bool Update( T obj );
         bool Delete( long id );
     }
 }

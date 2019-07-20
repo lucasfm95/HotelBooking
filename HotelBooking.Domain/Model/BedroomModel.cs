@@ -6,11 +6,11 @@ namespace HotelBooking.Domain.Model
 {
     public class BedroomModel
     {
-        public int TotalSigle { get; set; }
+        public int InactiveSingle { get; set; }
         public int ActiveSigle { get; set; }
-        public int TotalStandard { get; set; }
+        public int InactiveStandard { get; set; }
         public int ActiveStandard { get; set; }
-        public int TotalLuxury { get; set; }
+        public int InactiveLuxury { get; set; }
         public int ActiveLuxury { get; set; }
     }
 }
