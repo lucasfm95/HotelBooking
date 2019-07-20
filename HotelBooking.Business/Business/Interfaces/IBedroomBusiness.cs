@@ -8,6 +8,6 @@ namespace HotelBooking.Business.Business.Interfaces
 {
     public interface IBedroomBusiness
     {
-        bool CreateBedrooms( BedroomModel p_BedroomModel );
+        bool CreateBedrooms( List<BedroomModel> p_BedroomModels );
     }
 }

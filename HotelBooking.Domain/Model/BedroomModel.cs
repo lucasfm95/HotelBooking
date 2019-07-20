@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelBooking.Domain.ValueObj;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,11 +7,8 @@ namespace HotelBooking.Domain.Model
 {
     public class BedroomModel
     {
-        public int InactiveSingle { get; set; }
-        public int ActiveSigle { get; set; }
-        public int InactiveStandard { get; set; }
-        public int ActiveStandard { get; set; }
-        public int InactiveLuxury { get; set; }
-        public int ActiveLuxury { get; set; }
+        public eBedroomType Type { get; set; }
+        public int Actives { get; set; }
+        public int Inactives { get; set; }
     }
 }

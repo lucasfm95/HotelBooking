@@ -1,6 +1,7 @@
 ﻿using HotelBooking.Business.Business.Interfaces;
 using HotelBooking.Domain.Entities;
 using HotelBooking.Domain.Model;
+using HotelBooking.Domain.ValueObj;
 using HotelBooking.Repository.Repositories.Interfaces;
 using System.Collections.Generic;
 
@@ -14,85 +15,43 @@ namespace HotelBooking.Business.Business
             m_BedroomRepository = p_BedroomRepository;
         }
 
-        public bool CreateBedrooms( BedroomModel p_BedroomModel )
+        public bool CreateBedrooms( List<BedroomModel> p_BedroomModels )
         {
-
-            long id = 1;
             List<Bedroom> bedrooms = new List<Bedroom>( );
 
-            for ( int i = 0; i < p_BedroomModel.ActiveSigle; i++ )
+            foreach ( var bedroomModel in p_BedroomModels )
             {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Single,
-                    Active = true
-                } );
-
-                id++;
-            }
-
-            for ( int i = 0; i < p_BedroomModel.ActiveStandard; i++ )
-            {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Standard,
-                    Active = true
-                } );
-
-                id++;
-            }
-
-            for ( int i = 0; i < p_BedroomModel.ActiveLuxury; i++ )
-            {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Luxury,
-                    Active = true
-                } );
-
-                id++;
-            }
-
-            for ( int i = 0; i < p_BedroomModel.InactiveSingle; i++ )
-            {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Single,
-                    Active = false
-                } );
-
-                id++;
-            }
-
-            for ( int i = 0; i < p_BedroomModel.InactiveStandard; i++ )
-            {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Standard,
-                    Active = false
-                } );
-
-                id++;
-            }
-
-            for ( int i = 0; i < p_BedroomModel.InactiveLuxury; i++ )
-            {
-                bedrooms.Add( new Bedroom( )
-                {
-                    Id = id,
-                    Type = Domain.ValueObj.eBedroomType.Luxury,
-                    Active = false
-                } );
-
-                id++;
+                bedrooms.AddRange( CreateBedroomsByType( bedroomModel.Type, bedroomModel.Actives, bedroomModel.Inactives ) );
             }
 
             return m_BedroomRepository.Add( bedrooms );
+        }
+
+        private List<Bedroom> CreateBedroomsByType( eBedroomType p_Type, int p_Actives, int p_Inactives )
+        {
+            List<Bedroom> bedrooms = new List<Bedroom>( );
+
+            for ( int i = 1; i <= ( p_Actives + p_Inactives ); i++ )
+            {
+                if ( i <= p_Actives )
+                {
+                    bedrooms.Add( new Bedroom( )
+                    {
+                        Active = true,
+                        Type = p_Type
+                    });
+                }
+                else
+                {
+                    bedrooms.Add( new Bedroom( )
+                    {
+                        Active = false,
+                        Type = p_Type
+                    } );
+                }
+            }
+
+            return bedrooms;
         }
     }
 }

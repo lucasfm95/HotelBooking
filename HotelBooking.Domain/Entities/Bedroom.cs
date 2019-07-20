@@ -7,6 +7,10 @@ namespace HotelBooking.Domain.Entities
 {
     public class Bedroom : Entity
     {
+        public Bedroom( ) : base()
+        {
+           
+        }
         public eBedroomType Type { get; set; }
         public bool Active { get; set; }
     }

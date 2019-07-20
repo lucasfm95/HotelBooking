@@ -16,9 +16,9 @@ namespace HotelBooking.Services.Services
             m_BedroomBusiness = p_BedroomBusiness;
         }
 
-        public bool Registration( BedroomModel p_BedroomModel )
+        public bool Registration( List<BedroomModel> p_BedroomModels )
         {
-            return m_BedroomBusiness.CreateBedrooms( p_BedroomModel );
+            return m_BedroomBusiness.CreateBedrooms( p_BedroomModels );
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HotelBooking.Domain.Model;
+using HotelBooking.Domain.ValueObj;
 using HotelBooking.Services.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HotelBooking.Application
@@ -77,50 +79,36 @@ namespace HotelBooking.Application
 
         private void RegistrationBedrooms( )
         {
-            Console.Clear( );
-            // Single
-            Console.WriteLine( "Informe a quatidade total de quartos single:" );
-            int totalSingle = Convert.ToInt32( Console.ReadLine( ) );
 
-            Console.Clear( );
-
-            Console.WriteLine("Informe a quatidade de quartos para reserva sigle:");
-            int single = Convert.ToInt32( Console.ReadLine( ) );
-
-            Console.Clear( );
-
-            //Standard
-            Console.WriteLine( "Informe a quatidade total de quartos standard:" );
-            int totalStandard = Convert.ToInt32( Console.ReadLine( ) );
-
-            Console.Clear( );
-
-            Console.WriteLine( "Informe a quatidade de quartos para reserva standard:" );
-            int standard = Convert.ToInt32( Console.ReadLine( ) );
-
-            Console.Clear( );
-
-            Console.WriteLine( "Informe a quatidade total de quartos luxury:" );
-            int totalLuxury = Convert.ToInt32( Console.ReadLine( ) );
-
-            Console.Clear( );
-
-            Console.WriteLine( "Informe a quatidade de quartos para reserva luxury:" );
-            int luxury = Convert.ToInt32( Console.ReadLine( ) );
-
-            BedroomModel bedroomModel = new BedroomModel( )
+            List<BedroomModel> bedroomModels = new List<BedroomModel>( );
+            foreach ( var item in Enum.GetValues(typeof(eBedroomType)).Cast<eBedroomType>( ).ToList() )
             {
-                ActiveSigle = single,
-                InactiveSingle = totalSingle - single,
-                ActiveStandard = standard,
-                InactiveStandard = totalStandard - standard,
-                ActiveLuxury = luxury,
-                InactiveLuxury = totalLuxury - standard
-            };
+                
+                BedroomModel bedroomModel = new BedroomModel( );
 
-            if(m_BedroomService.Registration( bedroomModel ) )
+                Console.Clear( );
+
+                Console.WriteLine( $"Informe a quatidade total de quartos {item.GetDescription()}:" );
+
+                int totalbedrooms = Convert.ToInt32( Console.ReadLine( ) );
+
+                Console.Clear( );
+
+                Console.WriteLine( $"Informe a quatidade de quartos para reserva {item.GetDescription()}:" );
+
+                int activesBedrooms =  Convert.ToInt32( Console.ReadLine( ) );
+
+                bedroomModels.Add( new BedroomModel( )
+                {
+                    Type = item,
+                    Actives = activesBedrooms,
+                    Inactives = totalbedrooms - activesBedrooms
+                });
+            }
+
+            if ( m_BedroomService.Registration( bedroomModels ) )
             {
-                Console.WriteLine("Dados inseridos com sucesso");
+                Console.WriteLine( "Dados inseridos com sucesso" );
             }
         }
     }
