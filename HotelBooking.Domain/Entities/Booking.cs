@@ -4,9 +4,8 @@ using System.Text;
 
 namespace HotelBooking.Domain.Entities
 {
-    class Booking
+    public class Booking : Entity
     {
-        public int Id { get; set; }
         public DateTime Init { get; set; }
         public DateTime Fin { get; set; }
         public int Value { get; set; }

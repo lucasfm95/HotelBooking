@@ -7,7 +7,7 @@ namespace HotelBooking.Domain.ValueObj
     /// <summary>
     /// Enum para os tipos de quartos disponíveis
     /// </summary>
-    enum eBedroomType
+    public enum eBedroomType
     {
         Single = 1,
         Standard = 2,

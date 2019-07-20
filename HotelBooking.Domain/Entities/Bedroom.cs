@@ -5,9 +5,8 @@ using System.Text;
 
 namespace HotelBooking.Domain.Entities
 {
-    class Bedroom
+    public class Bedroom : Entity
     {
-        public int Id { get; set; }
         public eBedroomType Type { get; set; }
         public bool Active { get; set; }
     }
